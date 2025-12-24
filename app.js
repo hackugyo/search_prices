@@ -3,17 +3,22 @@
 
   const defaultConfig = {
     vars: {
-      hareruya_fqdn: "shops.hareruyamtg.com/shibuya",
-      amenity_fqdn: "www.amenitydream.com",
+      hareruya_fqdn: "shops.hareruyamtg.com/shibuya/products/search/result/?product=",
+      amenity_fqdn: "www.amenitydream.com/product-list?keyword=",
+      mercari_fqdn: "jp.mercari.com/search?keyword="
     },
     providers: [
       {
         name: "晴れる屋MTG 渋谷",
-        template: "https://{hareruya_fqdn}/products/search/result/?product={q_enc}",
+        template: "https://{hareruya_fqdn}{q_enc}",
       },
       {
         name: "アメニティードリーム",
-        template: "https://{amenity_fqdn}/product-list?keyword={q_enc}",
+        template: "https://{amenity_fqdn}{q_enc}",
+      },
+      {
+        name: "メルカリ",
+        template: "https://{mercari_fqdn}{q_enc}",
       },
     ],
   };
