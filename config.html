@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Config - Search Link Hub</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; line-height: 1.6; }
+    textarea { width: 100%; min-height: 180px; font-family: ui-monospace, monospace; }
+    input { width: 100%; padding: 8px; }
+    .row { margin: 14px 0; }
+    .box { max-width: 980px; }
+    button { padding: 10px 14px; }
+    .muted { opacity: 0.7; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Config</h1>
+    <p class="muted">
+      変数は {name} 形式でテンプレ内に埋め込めます。クエリは {q} と {q_enc} を使えます。
+    </p>
+
+    <div class="row">
+      <h2>Variables (JSON)</h2>
+      <textarea id="vars"></textarea>
+      <div class="muted">例: {"hareruya_fqdn":"shops.hareruyamtg.com/shibuya","amenity_fqdn":"www.amenitydream.com"}</div>
+    </div>
+
+    <div class="row">
+      <h2>Providers (JSON)</h2>
+      <textarea id="providers"></textarea>
+      <div class="muted">
+        例: [{"name":"晴れる屋 渋谷","template":"https://{hareruya_fqdn}/products/search/result/?product={q_enc}"}]
+      </div>
+    </div>
+
+    <div class="row">
+      <button id="save">Save</button>
+      <button id="reset">Reset to defaults</button>
+      <a href="/" style="margin-left:12px;">Back</a>
+    </div>
+
+    <div id="msg" class="muted"></div>
+  </div>
+
+  <script src="/app.js"></script>
+  <script>
+    const elVars = document.getElementById("vars");
+    const elProviders = document.getElementById("providers");
+    const elMsg = document.getElementById("msg");
+
+    const cfg = window.SearchLinkHub.loadConfig();
+    elVars.value = JSON.stringify(cfg.vars, null, 2);
+    elProviders.value = JSON.stringify(cfg.providers, null, 2);
+
+    document.getElementById("save").addEventListener("click", () => {
+      try {
+        const vars = JSON.parse(elVars.value || "{}");
+        const providers = JSON.parse(elProviders.value || "[]");
+        window.SearchLinkHub.saveConfig({ vars, providers });
+        elMsg.textContent = "Saved.";
+      } catch (e) {
+        elMsg.textContent = "JSON parse error: " + e;
+      }
+    });
+
+    document.getElementById("reset").addEventListener("click", () => {
+      window.SearchLinkHub.resetConfig();
+      const cfg2 = window.SearchLinkHub.loadConfig();
+      elVars.value = JSON.stringify(cfg2.vars, null, 2);
+      elProviders.value = JSON.stringify(cfg2.providers, null, 2);
+      elMsg.textContent = "Reset.";
+    });
+  </script>
+</body>
+</html>
