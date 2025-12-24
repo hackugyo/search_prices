@@ -67,10 +67,8 @@
 
     document.getElementById("reset").addEventListener("click", () => {
       window.SearchLinkHub.resetConfig();
-      const cfg2 = window.SearchLinkHub.loadConfig();
-      elVars.value = JSON.stringify(cfg2.vars, null, 2);
-      elProviders.value = JSON.stringify(cfg2.providers, null, 2);
       elMsg.textContent = "Reset.";
+      setTimeout(() => location.reload(), 300);
     });
   </script>
 </body>
