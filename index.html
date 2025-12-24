@@ -7,15 +7,50 @@
   <style>
     body { font-family: system-ui, sans-serif; margin: 24px; line-height: 1.6; }
     .box { max-width: 820px; }
-    ul { padding-left: 18px; }
     .muted { opacity: 0.7; }
     code { background: #f3f3f3; padding: 2px 6px; border-radius: 6px; }
+
+    /* 追加: 検索フォーム */
+    form { margin: 12px 0 18px; display: flex; gap: 10px; }
+    input[type="search"] {
+      flex: 1;
+      padding: 12px 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+    }
+    button {
+      padding: 12px 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      background: white;
+    }
+
+    /* 追加: リンクをタップしやすく */
+    ul.link-list { list-style: none; padding: 0; margin: 14px 0 0; }
+    ul.link-list li { margin: 12px 0; }
+    a.biglink {
+      display: block;
+      padding: 14px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 14px;
+      text-decoration: none;
+    }
+    a.biglink:active { transform: translateY(1px); }
+    .urlhint { font-size: 12px; opacity: 0.7; margin-top: 6px; word-break: break-all; }
   </style>
 </head>
 <body>
   <div class="box">
     <h1>Search Link Hub</h1>
     <p class="muted">設定は <a href="config.html">/config</a> で編集できます。</p>
+
+    <form id="searchForm" action="./" method="get">
+      <input id="queryInput" type="search" name="query" placeholder="例: 慈愛の王" autocomplete="off" enterkeyhint="search" />
+      <button type="submit">検索</button>
+    </form>
+
     <div id="content"></div>
   </div>
 
