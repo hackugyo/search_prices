@@ -39,6 +39,33 @@
     }
     a.biglink:active { transform: translateY(1px); }
     .urlhint { font-size: 12px; opacity: 0.7; margin-top: 6px; word-break: break-all; }
+    /* 販売 / 買取で雰囲気を分ける */
+    a.biglink.mode-sell {
+      border-left: 6px solid #ddd;
+      background: #fff;
+    }
+     
+    a.biglink.mode-buy {
+      border-left: 6px solid #bbb;
+      background: #fafafa;
+    }
+     
+    /* バッジ */
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      background: #fff;
+      opacity: 0.9;
+    }
+     
+    .badge-buy { border-color: #ccc; }
+    .badge-sell { border-color: #ddd; }
+
   </style>
 </head>
 <body>

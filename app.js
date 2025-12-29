@@ -26,10 +26,10 @@
       { name: "アメニティードリーム", template: "https://{amenity_fqdn}{q_enc}" },
       { name: "メルカリ", template: "https://{mercari_fqdn}{q_enc}" },
       { name: "駿河屋", template: "https://{surugaya_fqdn}{q_enc}" },
-      { name: "晴れる屋 買取", template: "https://{buy_hareruya_fqdn}{q_enc}" },
-      { name: "ドラスタ 買取", template: "https://{buy_dorasuta_fqdn}{q_enc}" },
-      { name: "ラッシュ 買取", template: "https://{buy_cardrush_fqdn}{q_enc}" },
-      { name: "Serra 買取", template: "https://{buy_serra_fqdn}{q_enc}" },
+      { name: "晴れる屋 買取", mode: "buy", template: "https://{buy_hareruya_fqdn}{q_enc}" },
+      { name: "ドラスタ 買取", mode: "buy", template: "https://{buy_dorasuta_fqdn}{q_enc}" },
+      { name: "ラッシュ 買取", mode: "buy",  template: "https://{buy_cardrush_fqdn}{q_enc}" },
+      { name: "Serra 買取", mode: "buy", template: "https://{buy_serra_fqdn}{q_enc}" },
     ],
   };
 
@@ -110,10 +110,19 @@
       const li = document.createElement("li");
       const a = document.createElement("a");
       a.className = "biglink";
+      // modeでクラス付与
+      const mode = (prov.mode === "buy") ? "buy" : "sell";
+      a.classList.add(`mode-${mode}`);
       a.textContent = prov.name || prov.template;
       a.href = url;
       a.target = "_blank";
       a.rel = "noopener noreferrer";
+
+      // modeによるバッジ
+      const badge = document.createElement("div");
+      badge.className = `badge badge-${mode}`;
+      badge.textContent = (mode === "buy") ? "買取" : "販売";
+      a.appendChild(badge);
 
       const hint = document.createElement("div");
       hint.className = "urlhint";
