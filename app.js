@@ -117,7 +117,8 @@
 
       const hint = document.createElement("div");
       hint.className = "urlhint";
-      hint.textContent = url;
+      hint.textContent = truncateForDisplay(url, 110);
+      hint.title = url;
 
       a.appendChild(hint);
       li.appendChild(a);
@@ -125,6 +126,12 @@
     }
 
     root.appendChild(ul);
+  }
+
+  function truncateForDisplay(s, maxLen = 110) {
+    if (!s) return "";
+    if (s.length <= maxLen) return s;
+    return s.slice(0, maxLen - 1) + "…";
   }
 
   window.SearchLinkHub = { loadConfig, saveConfig, resetConfig, applyTemplate };
