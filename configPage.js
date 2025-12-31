@@ -7,10 +7,16 @@
     if (elMsg) elMsg.textContent = s;
   }
 
-  function refresh() {
-    const cfg = window.SearchLinkHub.loadConfig();
-    elVars.value = JSON.stringify(cfg.vars || {}, null, 2);
-    elProviders.value = JSON.stringify(cfg.providers || [], null, 2);
+  async function refresh() {
+    try {
+      const cfg = await window.SearchLinkHub.loadConfig();
+      elVars.value = JSON.stringify(cfg.vars || {}, null, 2);
+      elProviders.value = JSON.stringify(cfg.providers || [], null, 2);
+      setMsg("");
+    } catch (e) {
+      console.error(e);
+      setMsg("Config load failed. Console を確認してください。");
+    }
   }
 
   document.getElementById("save").addEventListener("click", () => {
@@ -24,10 +30,10 @@
     }
   });
 
-  document.getElementById("reset").addEventListener("click", () => {
+  document.getElementById("reset").addEventListener("click", async () => {
     window.SearchLinkHub.resetConfig();
     setMsg("Reset.");
-    setTimeout(() => location.reload(), 300);
+    await refresh();
   });
 
   refresh();
