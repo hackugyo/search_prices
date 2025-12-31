@@ -15,7 +15,7 @@
       goodgame_fqdn: "goodgame.co.jp/search?options%5Bprefix%5D=last&filter.v.availability=1&filter.v.price.gte=&filter.v.price.lte=&sort_by=relevance&q=",
       buy_serra_fqdn: "cardshop-serra.com/mtg/buy_product?name=",
       arcana_fqdn: "shop.arcana-tcg.com/search?sort_by=relevance&options%5Bprefix%5D=last&filter.v.availability=1&filter.v.price.gte=&filter.v.price.lte=&filter.p.tag=MTG&q=",
-      
+      naokuro_fqdn: "naokuroshop.com/search?sort_by=relevance&options%5Bprefix%5D=last&filter.v.availability=1&filter.v.price.gte=&filter.v.price.lte=&q=%E6%AD%A6%E5%99%A8%E8%A3%BD%E9%80%A0",
     },
     providers: [
       { name: "Whisper", template: "https://{whisper_fqdn}{q_enc}" },
@@ -30,6 +30,7 @@
       { name: "ドラスタ 買取", mode: "buy", template: "https://{buy_dorasuta_fqdn}{q_enc}" },
       { name: "ラッシュ 買取", mode: "buy",  template: "https://{buy_cardrush_fqdn}{q_enc}" },
       { name: "Serra 買取", mode: "buy", template: "https://{buy_serra_fqdn}{q_enc}" },
+      { name: "naokuro", template: "https://{naokuro_fqdn}{q_enc}" },
     ],
   };
 
