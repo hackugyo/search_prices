@@ -26,7 +26,6 @@
     { "name": "晴れる屋 買取", "mode": "buy", "template": "https://{buy_hareruya_fqdn}{q_enc}" },
     { "name": "ドラスタ 買取", "mode": "buy", "template": "https://{buy_dorasuta_fqdn}{q_enc}" },
     { "name": "ラッシュ 買取", "mode": "buy", "template": "https://{buy_cardrush_fqdn}{q_enc}" },
-    { "name": "Serra 買取", "mode": "buy", "template": "https://{buy_serra_fqdn}{q_enc}" },
-    { "name": "naokuro", "template": "https://{naokuro_fqdn}{q_enc}" }
+    { "name": "Serra 買取", "mode": "buy", "template": "https://{buy_serra_fqdn}{q_enc}" }
   ]
 }
