@@ -1,6 +1,10 @@
 (() => {
+  // テンプレート（configから編集可能にしてある）
   const STORAGE_KEY = "hackugyo.search_prices.config.v1";
+  // 検索履歴
   const HISTORY_KEY = "hackugyo.search_prices.history.v1";
+   // 履歴折りたたみ状態
+  const HISTORY_UI_KEY = "hackugyo.search_prices.history_ui.v1";
   const URL_TRUNCATE_LEN = 110;
   const HISTORY_LIMIT = 20;
 
@@ -147,13 +151,32 @@
     return [];
   }
 
+
+  function loadHistoryExpanded() {
+    try {
+      return localStorage.getItem(HISTORY_UI_KEY) !== "0"; // 既定は展開
+    } catch {
+      return true;
+    }
+  }
+
+  function saveHistoryExpanded(v) {
+    try {
+      localStorage.setItem(HISTORY_UI_KEY, v ? "1" : "0");
+    } catch {}
+  }
+
   function renderHistory(list) {
     const host = document.getElementById("history");
     if (!host) return;
 
     host.textContent = "";
     host.className = "history";
-
+   
+    // 展開/折りたたみ状態
+    let expanded = loadHistoryExpanded();
+    if (!expanded) host.classList.add("is-collapsed");
+   
     const head = document.createElement("div");
     head.className = "history-head";
 
@@ -161,7 +184,22 @@
     title.className = "history-title";
     title.textContent = "検索履歴";
     head.appendChild(title);
-
+   
+    const actions = document.createElement("div");
+    actions.className = "history-actions";
+   
+    const toggleBtn = document.createElement("button");
+    toggleBtn.type = "button";
+    toggleBtn.className = "history-toggle";
+    toggleBtn.textContent = expanded ? "折りたたむ" : "展開";
+    toggleBtn.addEventListener("click", () => {
+      expanded = !expanded;
+      host.classList.toggle("is-collapsed", !expanded);
+      toggleBtn.textContent = expanded ? "折りたたむ" : "展開";
+      saveHistoryExpanded(expanded);
+    });
+    actions.appendChild(toggleBtn);
+   
     const clearBtn = document.createElement("button");
     clearBtn.type = "button";
     clearBtn.className = "history-clear";
@@ -170,30 +208,35 @@
       const cleared = clearHistory();
       renderHistory(cleared);
     });
-    head.appendChild(clearBtn);
-
+    actions.appendChild(clearBtn);
+   
+    head.appendChild(actions);
     host.appendChild(head);
-
+   
+    const body = document.createElement("div");
+    body.className = "history-body";
+    host.appendChild(body);
+   
     if (!list || list.length === 0) {
       const empty = document.createElement("div");
       empty.className = "muted";
       empty.textContent = "履歴はまだありません。";
-      host.appendChild(empty);
+      body.appendChild(empty);
       return;
     }
-
+   
     const ul = document.createElement("ul");
     ul.className = "history-list";
-
+   
     for (const q of list) {
       const li = document.createElement("li");
       li.className = "history-item";
-
+   
       const a = document.createElement("a");
       a.className = "history-link";
       a.href = `./?query=${encodeURIComponent(q)}`;
       a.textContent = q;
-
+   
       const rm = document.createElement("button");
       rm.type = "button";
       rm.className = "history-remove";
@@ -205,13 +248,13 @@
         const next = removeFromHistory(q);
         renderHistory(next);
       });
-
+   
       li.appendChild(a);
       li.appendChild(rm);
       ul.appendChild(li);
     }
-
-    host.appendChild(ul);
+   
+    body.appendChild(ul);
   }
 
   // templateで与えられたプレースホルダを置換してURLを作る。

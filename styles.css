@@ -68,3 +68,83 @@ a.biglink.mode-buy { border-left: 6px solid #bbb; background: #fafafa; }
 textarea { width: 100%; min-height: 180px; font-family: ui-monospace, monospace; }
 input { width: 100%; padding: 8px; }
 .row { margin: 14px 0; }
+
+/* ========== 検索履歴 ========== */
+.history {
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+.history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.history-title {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.history-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.history-toggle,
+.history-clear {
+  font-size: 13px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* toggle だけ固定幅にする */
+.history-toggle {
+  width: 7.5em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.history-body { margin-top: 6px; }
+
+/* 折りたたみ時は本体を非表示 */
+.history.is-collapsed .history-body { display: none; }
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.history-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 8px 0;
+}
+
+a.history-link {
+  flex: 1 1 auto;     /* これが伸びて右端を押し出す */
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+/* ×ボタンを右端に固定 */
+button.history-remove {
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 8px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+}
