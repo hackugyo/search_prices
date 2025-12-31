@@ -1,5 +1,5 @@
 (() => {
-  const STORAGE_KEY = "search_prices_config_v1";
+  const STORAGE_KEY = "hackugyo.search_prices.config.v1";
   const URL_TRUNCATE_LEN = 110;
 
   const clone = (obj) => {
@@ -101,6 +101,8 @@
     localStorage.removeItem(STORAGE_KEY);
   }
 
+  // templateで与えられたプレースホルダを置換してURLを作る。
+  // 未定義のプレ-スホルダはそのまま残す。
   function applyTemplate(template, ctx) {
     return template.replace(/\{([a-zA-Z0-9_]+)\}/g, (_, key) => {
       if (key === "q") return ctx.q;
@@ -110,6 +112,7 @@
     });
   }
 
+  // URL はリンク先としてはフルで使い、表示だけ末尾省略する。
   function truncateForDisplay(s, maxLen = URL_TRUNCATE_LEN) {
     if (!s) return "";
     if (s.length <= maxLen) return s;
@@ -141,6 +144,7 @@
     h2.textContent = "Query: " + q;
     root.appendChild(h2);
 
+    // providersをmodeで分類する。mode未指定はsellとして扱う。
     const sell = [];
     const buy = [];
     for (const prov of cfg.providers) {

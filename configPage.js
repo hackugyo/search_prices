@@ -7,6 +7,7 @@
     if (elMsg) elMsg.textContent = s;
   }
 
+  // 現在の設定をlocalStorageから読み、テキストエリアへ反映する。
   async function refresh() {
     try {
       const cfg = await window.SearchLinkHub.loadConfig();
