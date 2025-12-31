@@ -106,10 +106,22 @@
 
   // 履歴
   function loadHistory() {
-    return [];
+    try {
+      const raw = localStorage.getItem(HISTORY_KEY);
+      if (!raw) return [];
+      const arr = JSON.parse(raw);
+      if (!Array.isArray(arr)) return [];
+      return arr
+        .filter((x) => typeof x === "string")
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0);
+    } catch {
+      return [];
+    }
   }
 
   function saveHistory(list) {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
   }
 
   function addToHistory(q) {
@@ -129,7 +141,6 @@
     saveHistory(list);
     return list;
   }
-
 
   function clearHistory() {
     localStorage.removeItem(HISTORY_KEY);
@@ -204,7 +215,7 @@
   }
 
   // templateで与えられたプレースホルダを置換してURLを作る。
-  // 未定義のプレ-スホルダはそのまま残す。
+  // 未定義のプレースホルダはそのまま残す。
   function applyTemplate(template, ctx) {
     return template.replace(/\{([a-zA-Z0-9_]+)\}/g, (_, key) => {
       if (key === "q") return ctx.q;
