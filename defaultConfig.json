@@ -1,0 +1,32 @@
+{
+  "vars": {
+    "whisper_fqdn": "whisper.wisdom-guild.net/search/php?q=",
+    "hareruya_shibuya_fqdn": "shops.hareruyamtg.com/shibuya/products/search/result/?product=",
+    "hareruya_akiba_fqdn": "shops.hareruyamtg.com/akihabara/products/search/result/?product=",
+    "amenity_fqdn": "www.amenitydream.com/product-list?keyword=",
+    "mercari_fqdn": "jp.mercari.com/search?keyword=",
+    "surugaya_fqdn": "www.suruga-ya.jp/search?category=5&insStock=On&ck=...rand=%E3%82%A6%E3%82%A3%E3%82%B6%E3%83%BC%E3%82%BA%E3%83%BB%E3%82%AA%E3%83%96%E3%83%BB%E3%82%B6%E3%83%BB%E3%82%B3%E3%83%BC%E3%82%B9%E3%83%88&search_word=",
+    "buy_hareruya_fqdn": "www.hareruyamtg.com/ja/purchase/search?suggest_type=all&purchaseFlg=1&sort=price&order=ASC&page=1&product=",
+    "buy_dorasuta_fqdn": "buy.dorasuta.jp/mtg/product-list?kw=",
+    "buy_cardrush_fqdn": "cardrush.media/mtg/buying_prices?displayMode=%E3%83%AA%E3%82%B9%E3%83%88&limit=100&rarity=&model_number=&amount=&page=1&sort%5Bkey%5D=name&sort%5Border%5D=desc&associations%5B%5D=ocha_product&to_json_option%5Bmethods%5D=name_with_condition&to_json_option%5Bexcept%5D%5B%5D=original_image_source&to_json_option%5Bexcept%5D%5B%5D=created_at&to_json_option%5Binclude%5D%5Bocha_product%5D%5Bonly%5D%5B%5D=id&to_json_option%5Binclude%5D%5Bocha_product%5D%5Bmethods%5D%5B%5D=image_source&display_category%5B%5D=%E9%AB%98%E9%A1%8D%E7%B3%BB&display_category%5B%5D=foil%E7%B3%BB&display_category%5B%5D=%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%80%E3%83%BC%E3%83%89&display_category%5B%5D=%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%80%E3%83%BC%E3%83%89%E6%9C%80%E6%96%B0%E5%BC%BE&display_category%5B%5D=%E3%83%91%E3%82%A4%E3%82%AA%E3%83%8B%E3%82%A2%E4%BB%A5%E4%B8%8B&display_category%5B%5D=%E3%83%A2%E3%83%80%E3%83%B3%E4%BB%A5%E4%B8%8B%E6%9C%80%E6%96%B0%E5%BC%BE&name=",
+    "goodgame_fqdn": "goodgame.co.jp/search?options%5Bprefix%5D=...1&filter.v.price.gte=&filter.v.price.lte=&sort_by=relevance&q=",
+    "buy_serra_fqdn": "cardshop-serra.com/mtg/buy_product?name=",
+    "arcana_fqdn": "shop.arcana-tcg.com/search?sort_by=relevance...=1&filter.v.price.gte=&filter.v.price.lte=&filter.p.tag=MTG&q=",
+    "naokuro_fqdn": "naokuroshop.com/search?sort_by=relevance&op...te=&filter.v.price.lte=&q=%E6%AD%A6%E5%99%A8%E8%A3%BD%E9%80%A0"
+  },
+  "providers": [
+    { "name": "Whisper", "template": "https://{whisper_fqdn}{q_enc}" },
+    { "name": "GoodGame", "template": "https://{goodgame_fqdn}{q_enc}" },
+    { "name": "ARCANA", "template": "https://{arcana_fqdn}{q_enc}" },
+    { "name": "晴れる屋MTG 渋谷", "template": "https://{hareruya_shibuya_fqdn}{q_enc}" },
+    { "name": "晴れる屋MTG 秋葉原", "template": "https://{hareruya_akiba_fqdn}{q_enc}" },
+    { "name": "アメニティードリーム", "template": "https://{amenity_fqdn}{q_enc}" },
+    { "name": "メルカリ", "template": "https://{mercari_fqdn}{q_enc}" },
+    { "name": "駿河屋", "template": "https://{surugaya_fqdn}{q_enc}" },
+    { "name": "晴れる屋 買取", "mode": "buy", "template": "https://{buy_hareruya_fqdn}{q_enc}" },
+    { "name": "ドラスタ 買取", "mode": "buy", "template": "https://{buy_dorasuta_fqdn}{q_enc}" },
+    { "name": "ラッシュ 買取", "mode": "buy", "template": "https://{buy_cardrush_fqdn}{q_enc}" },
+    { "name": "Serra 買取", "mode": "buy", "template": "https://{buy_serra_fqdn}{q_enc}" },
+    { "name": "naokuro", "template": "https://{naokuro_fqdn}{q_enc}" }
+  ]
+}

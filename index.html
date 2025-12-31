@@ -4,85 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Search Link Hub</title>
-  <style>
-    body { font-family: system-ui, sans-serif; margin: 24px; line-height: 1.6; }
-    .box { max-width: 820px; }
-    .muted { opacity: 0.7; }
-    code { background: #f3f3f3; padding: 2px 6px; border-radius: 6px; }
-
-    /* 追加: 検索フォーム */
-    form { margin: 12px 0 18px; display: flex; gap: 10px; }
-    input[type="search"] {
-      flex: 1;
-      padding: 12px 14px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-    }
-    button {
-      padding: 12px 14px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      background: white;
-    }
-
-    /* 追加: リンクをタップしやすく */
-    ul.link-list { list-style: none; padding: 0; margin: 14px 0 0; }
-    ul.link-list li { margin: 12px 0; }
-    a.biglink {
-      display: block;
-      padding: 14px 16px;
-      border: 1px solid #e0e0e0;
-      border-radius: 14px;
-      text-decoration: none;
-    }
-    a.biglink:active { transform: translateY(1px); }
-    .urlhint { font-size: 12px; opacity: 0.7; margin-top: 6px; word-break: break-all; }
-    /* 販売 / 買取で雰囲気を分ける */
-    a.biglink.mode-sell {
-      border-left: 6px solid #ddd;
-      background: #fff;
-    }
-     
-    a.biglink.mode-buy {
-      border-left: 6px solid #bbb;
-      background: #fafafa;
-    }
-     
-    /* バッジ */
-    .badge {
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      font-size: 12px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid #ddd;
-      background: #fff;
-      opacity: 0.9;
-    }
-     
-    .badge-buy { border-color: #ccc; }
-    .badge-sell { border-color: #ddd; }
-
-    /* セクション */
-    .section {
-      margin-top: 18px;
-    }
-     
-    .section h3 {
-      margin: 18px 0 10px;
-      font-size: 16px;
-      opacity: 0.8;
-    }
-     
-    .section .empty {
-      margin: 8px 0 0;
-      opacity: 0.7;
-      font-size: 14px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="box">
@@ -97,6 +19,7 @@
     <div id="content"></div>
   </div>
 
-  <script src="app.js"></script>
+  <script defer src="defaultConfigLoader.js"></script>
+  <script defer src="app.js"></script>
 </body>
 </html>
