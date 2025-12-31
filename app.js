@@ -182,7 +182,8 @@
 
     const title = document.createElement("div");
     title.className = "history-title";
-    title.textContent = "検索履歴";
+    const count = Array.isArray(list) ? list.length : 0;
+    title.textContent = count > 0 ? `検索履歴 (${count})` : "検索履歴";
     head.appendChild(title);
    
     const actions = document.createElement("div");
