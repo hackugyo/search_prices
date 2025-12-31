@@ -1,7 +1,10 @@
 (() => {
   const STORAGE_KEY = "hackugyo.search_prices.config.v1";
+  const HISTORY_KEY = "hackugyo.search_prices.history.v1";
   const URL_TRUNCATE_LEN = 110;
+  const HISTORY_LIMIT = 20;
 
+  // URL生成テンプレートの取得
   const clone = (obj) => {
     if (typeof structuredClone === "function") return structuredClone(obj);
     return JSON.parse(JSON.stringify(obj));
@@ -101,6 +104,105 @@
     localStorage.removeItem(STORAGE_KEY);
   }
 
+  // 履歴
+  function loadHistory() {
+    return [];
+  }
+
+  function saveHistory(list) {
+  }
+
+  function addToHistory(q) {
+    const s = String(q || "").trim();
+    if (!s) return loadHistory();
+
+    const list = loadHistory().filter((x) => x !== s);
+    list.unshift(s);
+    if (list.length > HISTORY_LIMIT) list.length = HISTORY_LIMIT;
+    saveHistory(list);
+    return list;
+  }
+
+  function removeFromHistory(q) {
+    const s = String(q || "").trim();
+    const list = loadHistory().filter((x) => x !== s);
+    saveHistory(list);
+    return list;
+  }
+
+
+  function clearHistory() {
+    localStorage.removeItem(HISTORY_KEY);
+    return [];
+  }
+
+  function renderHistory(list) {
+    const host = document.getElementById("history");
+    if (!host) return;
+
+    host.textContent = "";
+    host.className = "history";
+
+    const head = document.createElement("div");
+    head.className = "history-head";
+
+    const title = document.createElement("div");
+    title.className = "history-title";
+    title.textContent = "検索履歴";
+    head.appendChild(title);
+
+    const clearBtn = document.createElement("button");
+    clearBtn.type = "button";
+    clearBtn.className = "history-clear";
+    clearBtn.textContent = "履歴を消去";
+    clearBtn.addEventListener("click", () => {
+      const cleared = clearHistory();
+      renderHistory(cleared);
+    });
+    head.appendChild(clearBtn);
+
+    host.appendChild(head);
+
+    if (!list || list.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "muted";
+      empty.textContent = "履歴はまだありません。";
+      host.appendChild(empty);
+      return;
+    }
+
+    const ul = document.createElement("ul");
+    ul.className = "history-list";
+
+    for (const q of list) {
+      const li = document.createElement("li");
+      li.className = "history-item";
+
+      const a = document.createElement("a");
+      a.className = "history-link";
+      a.href = `./?query=${encodeURIComponent(q)}`;
+      a.textContent = q;
+
+      const rm = document.createElement("button");
+      rm.type = "button";
+      rm.className = "history-remove";
+      rm.textContent = "×";
+      rm.title = "この履歴を削除";
+      rm.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const next = removeFromHistory(q);
+        renderHistory(next);
+      });
+
+      li.appendChild(a);
+      li.appendChild(rm);
+      ul.appendChild(li);
+    }
+
+    host.appendChild(ul);
+  }
+
   // templateで与えられたプレースホルダを置換してURLを作る。
   // 未定義のプレ-スホルダはそのまま残す。
   function applyTemplate(template, ctx) {
@@ -127,6 +229,9 @@
 
     const params = new URLSearchParams(location.search);
     const q = (params.get("query") || "").trim();
+    // 履歴の更新と描画（クエリがあるときは追加、ないときはそのまま表示）
+    const history = q ? addToHistory(q) : loadHistory();
+    renderHistory(history);
 
     const input = document.getElementById("queryInput");
     if (input && input.value !== q) input.value = q;
